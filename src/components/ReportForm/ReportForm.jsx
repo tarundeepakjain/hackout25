@@ -1,65 +1,86 @@
-import React, { useState } from "react";
-import "./ReportForm.css"; // import CSS module
+import React, { useState } from 'react';
 
-function ReportForm() {
-  const [photo, setPhoto] = useState(null);
-  const [description, setDescription] = useState("");
+const ReportForm = ({ coords, onSubmit }) => {
+  const [desc, setDesc] = useState("");
+  const [file, setFile] = useState(null);
 
-  const handleFileChange = (e) => {
-    setPhoto(e.target.files[0]);
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!photo) {
-      alert("Please upload a photo!");
+    if (!coords) {
+      alert("📍 Please enable location access to report incidents");
       return;
     }
 
-    const formData = new FormData();
-    formData.append("photo", photo);
-    formData.append("description", description);
+    const newReport = {
+      id: Date.now(),
+      desc: desc.trim(),
+      lat: coords[0],
+      lng: coords[1],
+      user: "User1",
+      timestamp: new Date().toISOString(),
+    };
 
-    const res = await fetch("http://localhost:5000/api/reports", {
-      method: "POST",
-      body: formData,
-    });
+    // Call the parent component's onSubmit handler
+    onSubmit(newReport);
 
-    if (res.ok) {
-      alert("Report submitted!");
-      setDescription("");
-      setPhoto(null);
-    } else {
-      alert("Error submitting report");
-    }
+    // Clear form
+    setDesc("");
+    setFile(null);
+    
+    // Success feedback
+    alert("✅ Incident reported successfully! +10 points earned");
   };
 
   return (
-    <form onSubmit={handleSubmit} className='form'>
-      <h2 className='title'>Report Mangrove Incident</h2>
+    <div className="card">
+      <h2 className="card-title">
+        🚨 Report Environmental Issue
+      </h2>
+      <form onSubmit={handleSubmit} className="report-form">
+        <div className="form-group">
+          <label htmlFor="description">📝 Describe the issue:</label>
+          <textarea
+            id="description"
+            placeholder="Describe the environmental issue you've observed (e.g., mangrove deforestation, pollution, illegal activities)..."
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
+            required
+            className="form-textarea"
+            rows={4}
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="evidence">📸 Upload Evidence (Optional):</label>
+          <input
+            id="evidence"
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
+            accept="image/*,video/*"
+            className="form-file"
+          />
+          <small className="form-help">
+            Upload photos or videos as evidence of the environmental issue
+          </small>
+        </div>
 
-      <label className='label'>Upload Photo:</label>
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        className='input'
-      />
+        {coords && (
+          <div className="location-info">
+            <p>📍 <strong>Your Location:</strong> {coords[0].toFixed(4)}, {coords[1].toFixed(4)}</p>
+            <small>Location will be automatically attached to your report</small>
+          </div>
+        )}
 
-      <label className='label'>Description:</label>
-      <textarea
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        className='textarea'
-        placeholder="Describe what you observed..."
-      />
-
-      <button type="submit" className='button'>
-        Submit Report
-      </button>
-    </form>
+        <button 
+          type="submit" 
+          className="submit-btn"
+          disabled={!desc.trim() || !coords}
+        >
+          📤 Submit Report
+        </button>
+      </form>
+    </div>
   );
-}
+};
 
 export default ReportForm;
