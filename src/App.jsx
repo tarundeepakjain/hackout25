@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import Home from "./components/Home"; // your new Home page
 import ReportForm from "./components/ReportForm/ReportForm";
 import MapView from "./components/MapView/MapView";
 import Leaderboard from "./components/Leaderboard/Leaderboard";
@@ -43,18 +45,34 @@ export default function App() {
   };
 
   return (
-    <div className="container">
-      <div className="card">
-        <ReportForm onSubmit={handleNewReport} />
-      </div>
+    <Router>
+      <Routes>
+        {/* Default Home page route */}
+        <Route path="/" element={<Home />} />
 
-      <div className="map">
-        <MapView reports={reports} />
-      </div>
+        {/* Existing dashboard stays */}
+        <Route
+          path="/dashboard"
+          element={
+            <div className="container">
+              <div className="card">
+                <ReportForm onSubmit={handleNewReport} />
+              </div>
 
-      <div className="card">
-        <Leaderboard leaderboard={leaderboard} />
-      </div>
-    </div>
+              <div className="map">
+                <MapView reports={reports} />
+              </div>
+
+              <div className="card">
+                <Leaderboard leaderboard={leaderboard} />
+              </div>
+            </div>
+          }
+        />
+
+        {/* Home page route (optional, for /home) */}
+        <Route path="/home" element={<Home />} />
+      </Routes>
+    </Router>
   );
 }
