@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./ReportForm.module.css"; // import CSS module
+import "./ReportForm.css"; // import CSS module
 
 function ReportForm() {
   const [photo, setPhoto] = useState(null);
@@ -36,26 +36,26 @@ function ReportForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <h2 className={styles.title}>Report Mangrove Incident</h2>
+    <form onSubmit={handleSubmit} className='form'>
+      <h2 className='title'>Report Mangrove Incident</h2>
 
-      <label className={styles.label}>Upload Photo:</label>
+      <label className='label'>Upload Photo:</label>
       <input
         type="file"
         accept="image/*"
         onChange={handleFileChange}
-        className={styles.input}
+        className='input'
       />
 
-      <label className={styles.label}>Description:</label>
+      <label className='label'>Description:</label>
       <textarea
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        className={styles.textarea}
+        className='textarea'
         placeholder="Describe what you observed..."
       />
 
-      <button type="submit" className={styles.button}>
+      <button type="submit" className='button'>
         Submit Report
       </button>
     </form>
