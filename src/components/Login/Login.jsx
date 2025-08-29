@@ -1,49 +1,25 @@
-import { useEffect } from "react";
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  onAuthStateChanged,
-} from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import styles from "./";
-
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID",
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "./Login.module.css";
 
 function Login() {
-  const handleGoogleLogin = async () => {
-    try {
-      await signInWithPopup(auth, provider);
-    } catch (error) {
-      console.error("Login Failed:", error);
-    }
-  };
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("Logged in:", user.displayName);
-      }
-    });
-  }, []);
+  const handleLogin = () => {
+    navigate("/home");
+  };
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Login</h2>
-      <button onClick={handleGoogleLogin} className={styles.googleBtn}>
-        Sign in with Google
-      </button>
+      <div className={styles.card}>
+        <h2>Community Mangrove Watch</h2>
+        <p>
+          Login to access the dashboard and start reporting mangrove incidents.
+        </p>
+        <button className={styles.loginButton} onClick={handleLogin}>
+          Login
+        </button>
+      </div>
     </div>
   );
 }
