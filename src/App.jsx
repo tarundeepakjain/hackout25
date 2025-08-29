@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
 import "./App.css";
+import ReportForm from "./components/ReportForm/ReportForm";
+import MapView from "./components/MapView/MapView";
+import Leaderboard from "./components/Leaderboard/Leaderboard";
 
 export default function App() {
   const [reports, setReports] = useState([]);
   const [leaderboard, setLeaderboard] = useState([]);
-  const [desc, setDesc] = useState("");
-  const [file, setFile] = useState(null);
   const [coords, setCoords] = useState(null);
 
   // get GPS location
@@ -18,8 +17,8 @@ export default function App() {
     );
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // handle new report submission
+  const handleNewReport = (desc, file) => {
     if (!coords) return;
 
     const newReport = {
@@ -28,11 +27,12 @@ export default function App() {
       lat: coords[0],
       lng: coords[1],
       user: "User1",
+      file,
     };
 
     setReports([...reports, newReport]);
 
-    // simple leaderboard (+10 points)
+    // update leaderboard (+10 points)
     const user = leaderboard.find((u) => u.name === "User1");
     if (user) {
       user.points += 10;
@@ -40,57 +40,20 @@ export default function App() {
     } else {
       setLeaderboard([...leaderboard, { name: "User1", points: 10 }]);
     }
-
-    setDesc("");
-    setFile(null);
   };
 
   return (
     <div className="container">
-      {/* Form */}
       <div className="card">
-        <h2>Report Incident</h2>
-        <form onSubmit={handleSubmit}>
-          <textarea
-            placeholder="Describe issue..."
-            value={desc}
-            onChange={(e) => setDesc(e.target.value)}
-          />
-          <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-          <button type="submit">Submit</button>
-        </form>
+        <ReportForm onSubmit={handleNewReport} />
       </div>
 
-      {/* Map */}
       <div className="map">
-        <MapContainer
-          center={[20.5937, 78.9629]} // 🇮🇳 India's center (lat, lng)
-          zoom={5}
-          style={{ height: "100%", width: "100%" }}
-        >
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          {reports.map((r) => (
-            <Marker key={r.id} position={[r.lat, r.lng]}>
-              <Popup>
-                <b>{r.user}</b>: {r.desc}
-              </Popup>
-            </Marker>
-          ))}
-        </MapContainer>
+        <MapView reports={reports} />
       </div>
 
-      {/* Leaderboard */}
       <div className="card">
-        <h2>Leaderboard</h2>
-        <ul>
-          {leaderboard
-            .sort((a, b) => b.points - a.points)
-            .map((u, i) => (
-              <li key={i}>
-                {i + 1}. {u.name} — {u.points} pts
-              </li>
-            ))}
-        </ul>
+        <Leaderboard leaderboard={leaderboard} />
       </div>
     </div>
   );
