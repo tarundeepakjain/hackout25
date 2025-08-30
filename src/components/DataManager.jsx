@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useMangroves } from '../hooks/useMangroves';
+import { useMangroves } from '../hooks';
 
 const DataManager = () => {
   const {

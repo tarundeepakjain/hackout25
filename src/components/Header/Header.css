@@ -1,0 +1,40 @@
+.header {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.data-manager-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggle-btn {
+  background: linear-gradient(135deg, #4a7c59 0%, #6b9c7a 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.toggle-btn.active {
+  background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%);
+}
+
+.toggle-btn.active:hover {
+  background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%);
+}

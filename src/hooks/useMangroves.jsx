@@ -4,7 +4,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import dataService from '../services/dataService.jsx';
 
-export const useMangroves = (initialFilters = {}) => {
+const useMangroves = (initialFilters = {}) => {
   const [mangroves, setMangroves] = useState({ features: [] });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -133,3 +133,5 @@ export const useMangroves = (initialFilters = {}) => {
     isEmpty: mangroves.features.length === 0
   };
 };
+
+export default useMangroves;
