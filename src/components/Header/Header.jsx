@@ -1,20 +1,15 @@
-import React from 'react';
-import './Header.css';
+import React from "react";
+import "./Header.css";
 
-const Header = ({ showDataManager, onToggleDataManager }) => {
+const Header = ({ appTitle = "Community Mangrove Watch" }) => {
   return (
-    <div className="header">
-      {/* 🌿 Data Manager Toggle Button */}
-      <div className="data-manager-toggle">
-        <button
-          onClick={onToggleDataManager}
-          className={`toggle-btn ${showDataManager ? 'active' : ''}`}
-          title={showDataManager ? 'Close Mangrove Data' : 'Open Mangrove Data Manager'}
-        >
-          {showDataManager ? '❌ Close' : '🌿 Mangrove Data'}
-        </button>
+    <header className="header">
+      {/* App Title / Logo */}
+      <div className="header-left">
+        <span className="app-logo">🌿</span>
+        <h1 className="app-title">{appTitle}</h1>
       </div>
-    </div>
+    </header>
   );
 };
 
