@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, GeoJSON, LayersControl } from "react-leaflet";
-import { useMangroves } from '../hooks/useMangroves.jsx';
+import { useMangroves } from '../hooks';
 import "leaflet/dist/leaflet.css";
 
 const { BaseLayer, Overlay } = LayersControl;
