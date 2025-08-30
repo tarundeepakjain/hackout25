@@ -50,6 +50,72 @@
   background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
 }
 
+/* Main Content Styles */
+.mainContent {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.welcomeTitle {
+  font-size: 2.5rem;
+  color: #2c5530;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.welcomeSubtitle {
+  font-size: 1.2rem;
+  color: #4a7c59;
+  margin-bottom: 40px;
+  opacity: 0.8;
+}
+
+.navigationGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.navCard {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 2px solid #e9ecef;
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.navCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  border-color: #4a7c59;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.navIcon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.navCard h3 {
+  font-size: 1.4rem;
+  color: #2c5530;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.navCard p {
+  font-size: 1rem;
+  color: #6c757d;
+  margin: 0;
+  line-height: 1.5;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .headerSection {
@@ -65,5 +131,30 @@
   .logoutButton {
     padding: 10px 20px;
     font-size: 0.9rem;
+  }
+
+  .welcomeTitle {
+    font-size: 2rem;
+  }
+
+  .welcomeSubtitle {
+    font-size: 1rem;
+  }
+
+  .navigationGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .navCard {
+    padding: 24px 20px;
+  }
+
+  .navIcon {
+    font-size: 2.5rem;
+  }
+
+  .navCard h3 {
+    font-size: 1.2rem;
   }
 }

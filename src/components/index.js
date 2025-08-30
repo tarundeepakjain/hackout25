@@ -19,3 +19,11 @@ export { default as Footer } from './Footer/Footer.jsx';
 export { default as Home } from './Home/Home.jsx';
 export { default as Login } from './Login/Login.jsx';
 export { default as ProtectedRoute } from './ProtectedRoute/ProtectedRoute.jsx';
+
+// Route Components
+export { default as DataManagerRoute } from './DataManagerRoute/DataManagerRoute.jsx';
+export { default as ReportFormRoute } from './ReportFormRoute/ReportFormRoute.jsx';
+export { default as MapSectionRoute } from './MapSectionRoute/MapSectionRoute.jsx';
+export { default as LeaderboardRoute } from './LeaderboardRoute/LeaderboardRoute.jsx';
+export { default as StatisticsDashboardRoute } from './StatisticsDashboardRoute/StatisticsDashboardRoute.jsx';
+export { default as QuickLinksRoute } from './QuickLinksRoute/QuickLinksRoute.jsx';

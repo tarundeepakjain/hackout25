@@ -1,64 +1,29 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext.jsx";
-import {
-  DataManager,
-  MapSection,
-  Leaderboard,
-  ReportForm,
-  Header,
-  StatisticsDashboard,
-  QuickLinks,
-  Footer
-} from "../index.js";
-import { useGeolocation, useAppState } from "../../hooks";
+import { Header, Footer } from "../index.js";
 import styles from "./Home.module.css";
 
 const Home = () => {
+  console.log('Home component rendering with navigation cards');
   const navigate = useNavigate();
   const { logout, user } = useAuth();
-  const { coords, error, loading } = useGeolocation();
-  const { 
-    reports, 
-    leaderboard, 
-    showDataManager, 
-    handleReportSubmit, 
-    toggleDataManager 
-  } = useAppState();
 
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
 
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner">🌿</div>
-        <p>Getting your location...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="error-container">
-        <div className="error-icon">⚠️</div>
-        <h2>Location Access Required</h2>
-        <p>{error}</p>
-        <p>Please enable location access to use this app.</p>
-      </div>
-    );
-  }
+  const handleNavigation = (route) => {
+    console.log('Navigating to:', route);
+    navigate(route);
+  };
 
   return (
     <div className={styles.homeContainer}>
-      {/* Header with Data Manager Toggle and Logout */}
+      {/* Header with Logout */}
       <div className={styles.headerSection}>
-        <Header 
-          showDataManager={showDataManager} 
-          onToggleDataManager={toggleDataManager} 
-        />
+        <Header />
         <div className={styles.userSection}>
           <span className={styles.userInfo}>
             👤 {user?.name || 'User'}
@@ -69,27 +34,67 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Conditional Data Manager Panel */}
-      {showDataManager && (
-        <div className="data-manager-panel">
-          <DataManager />
+      {/* Main Content - Navigation Cards */}
+      <div className={styles.mainContent}>
+        <h1 className={styles.welcomeTitle}>Welcome to Mangrove Guardian</h1>
+        <p className={styles.welcomeSubtitle}>Choose an action to get started</p>
+        
+        <div className={styles.navigationGrid}>
+          <div 
+            className={styles.navCard} 
+            onClick={() => handleNavigation('/report')}
+          >
+            <div className={styles.navIcon}>📝</div>
+            <h3>Report Mangrove</h3>
+            <p>Submit a new mangrove report</p>
+          </div>
+
+          <div 
+            className={styles.navCard} 
+            onClick={() => handleNavigation('/map')}
+          >
+            <div className={styles.navIcon}>🗺️</div>
+            <h3>View Map</h3>
+            <p>Explore mangrove locations</p>
+          </div>
+
+          <div 
+            className={styles.navCard} 
+            onClick={() => handleNavigation('/leaderboard')}
+          >
+            <div className={styles.navIcon}>🏆</div>
+            <h3>Leaderboard</h3>
+            <p>See top contributors</p>
+          </div>
+
+          <div 
+            className={styles.navCard} 
+            onClick={() => handleNavigation('/statistics')}
+          >
+            <div className={styles.navIcon}>📊</div>
+            <h3>Statistics</h3>
+            <p>View detailed analytics</p>
+          </div>
+
+          <div 
+            className={styles.navCard} 
+            onClick={() => handleNavigation('/data-manager')}
+          >
+            <div className={styles.navIcon}>⚙️</div>
+            <h3>Data Manager</h3>
+            <p>Manage your data</p>
+          </div>
+
+          <div 
+            className={styles.navCard} 
+            onClick={() => handleNavigation('/quick-links')}
+          >
+            <div className={styles.navIcon}>🔗</div>
+            <h3>Quick Links</h3>
+            <p>Access useful resources</p>
+          </div>
         </div>
-      )}
-
-      {/* Report Form Component */}
-      <ReportForm coords={coords} onSubmit={handleReportSubmit} />
-
-      {/* Interactive Map Section */}
-      <MapSection reports={reports} userCoords={coords} />
-
-      {/* Leaderboard Component */}
-      <Leaderboard leaderboard={leaderboard} />
-
-      {/* Statistics Dashboard */}
-      <StatisticsDashboard reports={reports} leaderboard={leaderboard} />
-
-      {/* Quick Links Section */}
-      <QuickLinks />
+      </div>
 
       {/* Footer */}
       <Footer />
