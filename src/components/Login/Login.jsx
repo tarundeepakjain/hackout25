@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext.jsx";
 import styles from "./Login.module.css";
 
@@ -24,8 +24,16 @@ function Login() {
     try {
       await login(formData.email, formData.password);
       navigate("/home");
-    } catch {
-      setError("Login failed. Please try again.");
+    } catch (error) {
+      if (error.code === "auth/user-not-found") {
+        setError("No account found with this email. Please sign up first.");
+      } else if (error.code === "auth/wrong-password") {
+        setError("Incorrect password. Please try again.");
+      } else if (error.code === "auth/invalid-email") {
+        setError("Please enter a valid email address.");
+      } else {
+        setError("Login failed. Please try again.");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -67,10 +75,27 @@ function Login() {
             />
           </div>
 
-          <button type="submit" className={styles.loginButton} disabled={isLoading}>
+          <button
+            type="submit"
+            className={styles.loginButton}
+            disabled={isLoading}
+          >
             {isLoading ? "Logging in..." : "Login"}
           </button>
         </form>
+
+        <div className={styles.signupLink}>
+          <span>Don't have an account? </span>
+          <Link to="/signup" className={styles.link}>
+            Sign up
+          </Link>
+        </div>
+
+        <div className={styles.forgotPassword}>
+          <Link to="/forgot-password" className={styles.link}>
+            Forgot your password?
+          </Link>
+        </div>
 
         <div className={styles.demoNote}>
           <p>💡 Demo: Use any email/password to login</p>

@@ -1,4 +1,4 @@
-/* Login.module.css */
+/* Signup.module.css */
 
 .container {
   min-height: 100vh;
@@ -35,12 +35,12 @@
 .card {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  padding: 3rem;
+  padding: 2.5rem;
   border-radius: 20px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
     0 0 0 1px rgba(255, 255, 255, 0.1);
   text-align: center;
-  max-width: 420px;
+  max-width: 480px;
   width: 100%;
   position: relative;
   animation: slideIn 0.6s ease-out;
@@ -81,7 +81,7 @@
 }
 
 .card h2 {
-  font-size: 2.25rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #2d5a27;
   margin-bottom: 0.5rem;
@@ -93,23 +93,20 @@
 
 .card p {
   color: #4a5568;
-  margin-bottom: 2rem;
-  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
   line-height: 1.5;
 }
 
 .errorMessage {
   background: linear-gradient(135deg, #fed7d7 0%, #feb2b2 100%);
   color: #e53e3e;
-  padding: 0.875rem;
+  padding: 0.75rem;
   border-radius: 10px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-size: 0.9rem;
   border: 1px solid #fc8181;
   animation: shake 0.5s ease-in-out;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
 @keyframes shake {
@@ -125,18 +122,17 @@
   }
 }
 
-.errorMessage::before {
-  content: "⚠️";
-  font-size: 1rem;
-  flex-shrink: 0;
-}
-
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
   text-align: left;
-  margin-bottom: 1.5rem;
+}
+
+.nameRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
 
 .inputGroup {
@@ -148,13 +144,13 @@
   font-weight: 600;
   color: #2d3748;
   margin-bottom: 0.5rem;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 .inputGroup input {
-  padding: 1rem;
+  padding: 0.875rem;
   border: 2px solid #e2e8f0;
-  border-radius: 12px;
+  border-radius: 10px;
   font-size: 1rem;
   transition: all 0.3s ease;
   background: #fff;
@@ -175,7 +171,7 @@
   color: #a0aec0;
 }
 
-.loginButton {
+.signupButton {
   background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
   color: white;
   border: none;
@@ -190,7 +186,7 @@
   overflow: hidden;
 }
 
-.loginButton::before {
+.signupButton::before {
   content: "";
   position: absolute;
   top: 0;
@@ -206,60 +202,60 @@
   transition: left 0.5s;
 }
 
-.loginButton:hover:not(:disabled) {
+.signupButton:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(56, 161, 105, 0.3);
+  box-shadow: 0 8px 16px rgba(56, 161, 105, 0.3);
 }
 
-.loginButton:hover:not(:disabled)::before {
+.signupButton:hover:not(:disabled)::before {
   left: 100%;
 }
 
-.loginButton:active:not(:disabled) {
+.signupButton:active:not(:disabled) {
   transform: translateY(-1px);
 }
 
-.loginButton:disabled {
+.signupButton:disabled {
   background: #a0aec0;
   cursor: not-allowed;
   transform: none;
 }
 
-.loginButton:disabled::before {
+.signupButton:disabled::before {
   display: none;
 }
 
-.signupLink {
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #e2e8f0;
-  color: #4a5568;
-  font-size: 0.95rem;
+.loginLink {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
 }
 
-.forgotPassword {
-  margin-bottom: 1.5rem;
+.loginLink p {
+  margin: 0;
+  color: #4a5568;
+  font-size: 0.95rem;
 }
 
 .link {
   color: #38a169;
   text-decoration: none;
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .link:hover {
   color: #2f855a;
   text-decoration: underline;
-  transform: translateX(2px);
 }
 
 .demoNote {
   background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
   border: 1px solid #81e6d9;
   border-radius: 10px;
-  padding: 1rem;
-  font-size: 0.9rem;
+  padding: 0.75rem;
+  margin-top: 1rem;
+  font-size: 0.85rem;
   color: #234e52;
 }
 
@@ -268,36 +264,39 @@
   font-weight: 500;
 }
 
-/* Loading state for button */
-.loginButton:disabled {
-  position: relative;
+.features {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
 }
 
-.loginButton:disabled::after {
-  content: "";
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top: 2px solid white;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #4a5568;
+  transition: transform 0.2s ease;
+  text-align: left;
 }
 
-@keyframes spin {
-  0% {
-    transform: translateY(-50%) rotate(0deg);
-  }
-  100% {
-    transform: translateY(-50%) rotate(360deg);
-  }
+.feature:hover {
+  transform: translateX(3px);
+}
+
+.featureIcon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
 }
 
 /* Responsive Design */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .container {
     padding: 15px;
   }
@@ -308,52 +307,61 @@
   }
 
   .card h2 {
-    font-size: 1.875rem;
+    font-size: 1.75rem;
   }
 
-  .card p {
-    font-size: 1rem;
+  .nameRow {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   .logo {
     font-size: 2.5rem;
   }
 
-  .inputGroup input {
-    padding: 0.875rem;
-    font-size: 1rem;
+  .features {
+    gap: 0.5rem;
   }
 
-  .loginButton {
-    padding: 0.875rem;
-    font-size: 1rem;
-  }
-
-  .signupLink,
-  .forgotPassword {
-    font-size: 0.9rem;
+  .feature {
+    padding: 0.6rem;
+    font-size: 0.85rem;
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 480px) {
   .card {
     padding: 1.5rem;
   }
 
   .card h2 {
-    font-size: 1.625rem;
+    font-size: 1.5rem;
+  }
+
+  .card p {
+    font-size: 0.95rem;
+  }
+
+  .inputGroup input {
+    padding: 0.75rem;
+  }
+
+  .signupButton {
+    padding: 0.875rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .card {
+    padding: 1.25rem;
   }
 
   .logo {
     font-size: 2rem;
   }
 
-  .inputGroup input {
-    padding: 0.75rem;
-  }
-
-  .loginButton {
-    padding: 0.75rem;
+  .card h2 {
+    font-size: 1.375rem;
   }
 }
 
@@ -372,10 +380,6 @@
     -webkit-text-fill-color: #2d5a27;
     color: #2d5a27;
   }
-
-  .link {
-    text-decoration: underline;
-  }
 }
 
 /* Reduced motion support */
@@ -388,11 +392,11 @@
     animation: none;
   }
 
-  .loginButton {
+  .signupButton {
     transition: none;
   }
 
-  .loginButton::before {
+  .signupButton::before {
     display: none;
   }
 
@@ -402,13 +406,5 @@
 
   .inputGroup input {
     transition: none;
-  }
-
-  .link {
-    transition: none;
-  }
-
-  .loginButton::after {
-    animation: none;
   }
 }
